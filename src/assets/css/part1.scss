@@ -1,0 +1,17 @@
+.active {
+    color: red;
+  }
+  .ab{
+    color:green;
+  }
+  .cd{
+    color:blue;
+  }
+  .del{
+    text-decoration: line-through;
+  }
+// npm install  node-sass sass-loader style-loader --save-dev 
+// 如果有node-sass的错误，卸载重新安装
+// npm uninstall node-sass
+// npm install node-sass@latest
+// npm rebuild node-sass 
