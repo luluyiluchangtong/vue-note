@@ -65,7 +65,7 @@
      <router-link to="/part1/p12">p12</router-link>
       <router-view></router-view>
 
-      <div class="wrapper ba overflow-hidden" ref="wrapper" style=" height:400px; width:400px;">
+      <div class="wrapper ba overflow-hidden" ref="wrapper" style=" height:400px; width:400px;">dfsaf
       <ul class="content">
          <li class=" h5 ba w-100">dsd1</li>
          <li class=" h5 ba w-100">dsd2</li>
@@ -79,10 +79,12 @@
      </div>
      <!-- better-scroll 滚动 -->
      <button @click="toast">按钮</button>
+     <div @click="Box()">{{this.$appName}} 这是在 main.js Vue原型上定义的属性，</div>  
   </div>
 </template>
 <script>
 import num from "./num";
+import "../assets/css/part1.scss";
 import BScroll from "better-scroll";
 // import data from "../api/data";
 import { mapState, mapMutations } from "vuex";
@@ -129,6 +131,7 @@ export default {
     }
   }
 })
+
 new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个元素上！
 // 就是 新建组件
 
@@ -143,9 +146,11 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
      */
   },
   created() {
+    // 所有的生命周期钩子自动绑定 this 上下文 到实例中
     // 实例创建完后就立即调用的方法
     this.crea();
     this.scroll;
+    this.$Box(); // 这个是全局的方法， 在 main.js 里定义
   },
   components: {
     num

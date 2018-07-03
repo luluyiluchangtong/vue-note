@@ -27,15 +27,15 @@
      </div>
 
       <div class=" bb pa2">
-
-    <part3Child  inline-template
-    v-on:fc1="fc2" 
+        <!-- 当使用 inline-template 特性时， 则组件标签内的内容作为模板，而不是 slot分发内容 -->
+        <!-- 另一个是 通过在 script 标签上定义  type="text/x-template" id="hello-world-template", 然后通过这个 id 来引用模板  -->
+        <!-- vue 定义 模板的几种方式：字符串模板， x-template,  inline-template, render函数， JSX， 单文件组件 -->
+    <part3Child    
+    :syncP.sync="syncProps"
+    v-on:fc="fc2" 
     v-for="item in items" 
     :key="item.id" 
     :todo.sync="item">
-          <template>
-        <div>22222222222</div>
-      </template>
     </part3Child>
       </div>
       <div class=" bb pa2">
@@ -55,11 +55,12 @@
  <button @click="plusNum()">按钮Module</button>
  <button @click="syncM()">asyM</button>
     <component :is="currentView"></component>
+    <p11 :list="list"/>
   </div>
 </template>
 <script>
 // import data from "../api/api";
-import part3Child from "./part3-child.vue";
+import part3Child from "./part3Child.vue";
 import p11 from "./p11.vue";
 // 一般 默认是文件名称，，但这里 import 进来是可以 改命名的
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -73,16 +74,34 @@ export default {
   // },     组件里的导航守卫
   data() {
     return {
+      list: [
+        {
+          title: "成人票",
+          children: [
+            {
+              title: "成人三馆联票"
+            },
+            {
+              title: "成人五馆联票"
+            }
+          ]
+        },
+        {
+          title: "学生票"
+        },
+        {
+          title: "儿童票"
+        },
+        {
+          title: "特惠票"
+        }
+      ],
+      syncProps: 1111,
       msg: "sfafsafsafsaffafasas",
       docState: "edited",
       currentView: p11,
       something: "sffsfafsa",
-      items: [
-        { id: "1", text: "11" },
-        { id: "2", text: "22" },
-        { id: "3", text: "33" },
-        { id: "4", text: "44" }
-      ],
+      items: [{ id: "1", text: "11" }, { id: "2", text: "22" }, { id: "3", text: "33" }, { id: "4", text: "44" }],
       goods: {},
       classMap: ["ab", "cd"],
       numbers: [1, 2, 3, 4, 5, 6],
@@ -114,6 +133,7 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
   },
+
   computed: {
     even() {
       return this.numbers.filter(function(number) {
@@ -135,14 +155,15 @@ export default {
       }
     }
   },
-  created() {
-    this._getData();
-    // 执行函数 获取数据
-  },
+  created() {},
   methods: {
+    aa() {
+      console.log(this.$children);
+    },
     ...mapMutations(["plusNum"]),
     ...mapActions(["syncM"]),
     fc2() {
+      this.aa();
       alert("edf");
     },
     box(event) {
@@ -163,31 +184,7 @@ export default {
       this.$nextTick(() => {
         return (this.total += 1);
       });
-    },
-    _getData() {
-      this.axios
-        .get(
-          "https://www.easy-mock.com/mock/5a1fc1c6583969285ab17256/llylct/num1"
-        )
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-          this.goods = res.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
     }
-    // _aa() {
-    //   this.axios({
-    //     method: "get",
-    //     url: "https://api.github.com/repos/vmg/redcarpet/issues?state=closed",
-    //     responseType: "stream"
-    //   }).then(function(response) {
-    //     // response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
-    //     console.log(response)
-    //   });
-    // }
   }
 };
 </script>

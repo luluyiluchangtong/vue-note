@@ -29,6 +29,11 @@ smoothscroll.polyfill();
 // 只是单独的在 单个组件 里用，就直接 import axios  然后 aixos.get(api)... 这么用就行了
 Vue.config.keyCodes.y = 121;
 Vue.config.productionTip = false;
+Vue.prototype.$appName = "My App"; // Vue原型上定义的属性, 方法。这样在每个实例中都可以使用了。
+//  $  是为实例属性设置的作用域， 为的是避免和是实例里的 属性，方法冲突
+Vue.prototype.$Box = function() {
+  alert("ssss");
+};
 /*
 Vue.config.errorHandler = function (err, vm, info) {
   console.log(err);

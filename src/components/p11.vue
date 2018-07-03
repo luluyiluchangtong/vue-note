@@ -1,13 +1,19 @@
 <template>
-    <div>
-       <span>fedf</span>
+  <div>
+    <div class="item" v-for="(item,index) of list" :key="index">
+      <div class="item-title border-bottom"><span class="item-title-icon"></span>{{item.title}}</div>
+      <div v-if="item.children">
+        <p11 :list="item.children" class="item-children"></p11>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "p11", // name 属性值就是全局注册的 组件名；使用一个最终会得到 false 的 v-if 调用组件
+  props: {
+    list: Array
+  }
+};
 </script>
-
-<style scoped>
-
-</style>
