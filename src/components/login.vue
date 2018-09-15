@@ -7,33 +7,33 @@
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
-    export default{
-        data () {
-            return {
-                tel: '',
-                pas: ''
-            }
-        },
-        computed: {
-            ...mapState({
-                gettel: state => state.gettel,
-                getpas: state => state.getpas
-            })
-        },
-        methods: {
-            back () {
-                this.$router.go('-1')
-            },
-            check () {
-                if(this.tel==='' || this.pas===''){
-                    alert('输入框不能为空！')
-                }else if(this.tel !== this.gettel || this.pas !== this.getpas){
-                    alert('输入不正确！')
-                }else{
-                    this.$router.replace('/part1')
-                }
-            }
-        }
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      tel: "",
+      pas: ""
+    };
+  },
+  computed: {
+    ...mapState({
+      gettel: state => state.gettel,
+      getpas: state => state.getpas
+    })
+  },
+  methods: {
+    back() {
+      this.$router.go("-1");
+    },
+    check() {
+      if (this.tel === "" || this.pas === "") {
+        alert("输入框不能为空！");
+      } else if (this.tel !== this.gettel || this.pas !== this.getpas) {
+        alert("输入不正确！");
+      } else {
+        this.$router.replace("/part1");
+      }
     }
+  }
+};
 </script>

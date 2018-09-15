@@ -1,12 +1,8 @@
-import config from "./config.js";
-// const _baseUrl = "https://www.easy-mock.com/mock/5a1fc1c6583969285ab17256/llylct/num1";
-// export default {
-//   getData() {
-//     return axios.get(_baseUrl).then((res, rej) => {
+import { get, post } from './config'
 
-//     })
-//   }
-// };
+export const apiAddress = p => post('/v2/store/order', p);
+export const apiAddress1 = p => get('/v2/user/login', p);
+
 
 /*
 方式一：

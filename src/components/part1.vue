@@ -12,16 +12,16 @@
     </div>
     <!--************-->
     <div class='bb pa2'>
-      <num msg='静态 props'></num>
+      <num v-model="searchText" v-for="(item, index) of items1" :key="index" :todo="item"  msg='静态 props'></num>
       <!-- <mumName msg='静态 props'></mumName> -->
       <!-- 书写顺序： 1.先写import 2.再写 components  3.最后写组件标签 -->
       <!-- import 后面的名称可以自由定义的，一般是默认的文件名称 -->
       <!-- 静态 props-->
       <num :msg1='msg1'></num>
-      <!-- 动态 props-->
+      <!-- 动态 props  prop通过 v-bind 动态赋值-->
       <num v-bind="msg2"></num>
       <!-- 动态 props 绑定对象的方式,-->
-      
+      <!-- props 可以是 数组 或 对象，用来接收来自 父组件 的 数据 -->
     </div>
     <!--************-->
     <div class='bb pa2'>
@@ -78,8 +78,12 @@
       </ul> 
      </div>
      <!-- better-scroll 滚动 -->
-     <button @click="toast">按钮</button>
+     <button @click="actionAPI">actionAPI</button>
+     <button @click="onLoad">11按钮</button>
+     <button @click="toast">toast按钮</button>
      <div @click="Box()">{{this.$appName}} 这是在 main.js Vue原型上定义的属性，</div>  
+     <div ref="abc" @click="sayHi()">abc</div>
+     
   </div>
 </template>
 <script>
@@ -87,16 +91,24 @@ import num from "./num";
 import "../assets/css/part1.scss";
 import BScroll from "better-scroll";
 // import data from "../api/data";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
+import { apiAddress, apiAddress1 } from "../api/api.js"; // 导入我们的api接口
 export default {
-  name: "part1", // 只能出现在 组件选项上，name 主要是便于调试
+  name: "part1", // 只能出现在 组件选项上，name 主要是便于调试，所以请给每个组件提供一个 name
   data() {
     // data的属性转换为  getter  setter 而且只能是数据，不推荐有状态行为的对象，
     // 这里不能用箭头函数，因为=>指的是父级上下文，this就不是这个实例(组件)了，就找不到data里的数据了
     return {
+      searchText: "haorooms",
       items: [],
+      items1: [
+        { text: "sdf" },
+        { text: "sdf" },
+        { text: "sdf" },
+        { text: "sdf" }
+      ],
       newItem: "",
-      msg: "",
+      msg: "qrwtqw",
       tabActive: 0,
       msg1: "动态 props1 --- msg1",
       msg2: {
@@ -107,8 +119,11 @@ export default {
     };
   },
   mounted() {
-    this.$nextTick(() => {
+    // 注意 mounted 不会承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted
+    this.$set(() => {
       // this.$nextTick 是一个异步函数，修改数据后，确保 整个DOM渲染完毕，再执行的步骤。 用setTimeout(fn,20)也可以
+      // 即 vue 中的 数据渲染 是异步的。。需要等 DOM 更新完成后才开始渲染数据，直接操作 DOM 则需要一个异步函数
+
       this.scroll = new BScroll(this.$refs.wrapper, {
         startY: 20,
         scrollX: true
@@ -117,7 +132,7 @@ export default {
     // this.$nextTick().then(); 作为一个 Promise使用
     /**
      * 实例方法：
-     * Vue.set(target,key,value)  设置对象的 “属性”
+     * Vue.set(target {object | Array}, key(String | number),value)  设置对象的 “属性”
      * Vue.delete(target,key)  删除对象的 “属性”
      * Vue.use() 安装插件   Vue.use(vuex)
      * Vue.directive()   注册/获取全局 “指令”  v-if  v-bind
@@ -147,7 +162,11 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
   },
   created() {
     // 所有的生命周期钩子自动绑定 this 上下文 到实例中
-    // 实例创建完后就立即调用的方法
+    // 实例创建完后就立即调用的方法''
+    this.$nextTick(function() {
+      // this.$refs.abc.style.color = "red";
+    });
+    this.onLoad();
     this.crea();
     this.scroll;
     this.$Box(); // 这个是全局的方法， 在 main.js 里定义
@@ -160,11 +179,22 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
     number() {
       return this.$store.state.module.number;
     },
+    // 如果使用了  箭头函数，则
+    // number: vm=>vm.module.number
     ...mapState(["hide", "num1"])
   },
   // 这里不能用箭头函数，因为=>指的是父级上下文，this就不是这个实例(组件)了, 就找不到data里的数据了
   // 计算属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算
   methods: {
+    sayHi: function() {
+      alert("Hi!");
+      this.msg = "11111";
+      console.log(this.msg);
+      this.$nextTick(function() {
+        this.$refs.abc.innerHTML = this.msg;
+      });
+    },
+    // this.$nextTick 一是用在 mounted updated 上等挂载的组件及其所有的子组件都渲染完毕  二是用在 更新数据 并操作 DOM时
     toast() {
       // 全局调用toast
       this.$toast("xinxi", 1500);
@@ -183,8 +213,15 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
       this.items.splice(index, 1);
     },
     ...mapMutations(["TOGGOLE", "add"]),
+    ...mapActions([
+      "actionAPI" // 映射 this.increment() 为 this.$store.dispatch('increment')
+    ]),
+    // actionAPI() {
+    //   this.$store.dispatch("actionAPI");
+    // },
     Async() {
-      this.$store.dispatch("incrementAsync");
+      // this.$store.dispatch("incrementAsync");  // 带参数 和不带参数的提交方式, action里异步提交的时候带参数，这里触发就不带参数，反之亦然！
+      this.$store.dispatch("incrementAsync", { number11: 11 });
     },
     tabClik(index) {
       this.tabActive = index;
@@ -194,6 +231,24 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
     },
     incre() {
       this.$store.commit("increment", { number11: 10 }); // 带参数和不带参数的提交方式
+    },
+    // 获取数据
+    onLoad() {
+      // 调用api接口，并且提供了两个参数
+      apiAddress({
+        type: 0,
+        sort: 1
+      }).then(res => {
+        // 获取数据成功后的其他操作
+        console.log(res);
+      });
+      apiAddress1({
+        type: 0,
+        sort: 1
+      }).then(res => {
+        // 获取数据成功后的其他操作
+        console.log(res);
+      });
     }
     // refresh() {
     //   this.$refs.wrapper.refresh();

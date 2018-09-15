@@ -1,10 +1,24 @@
+import { apiAddress } from '../api/api'
 export default {
   incrementAsync({ commit }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        // commit("increment"); 
         commit("increment", { number11: 11 }); // 带参数 和不带参数的提交方式
       }, 2000);
     });
+  },
+  actionAPI({ commit }) {  // ajax 请求的数据 放在 状态管理中，供应全局调用，
+    apiAddress({
+      type: 0,
+      sort: 1
+    }).then(res => {
+      // 获取数据成功后的其他操作
+      console.log(res);
+      // commit("mutationAPI", res)
+      commit("mutationAPI", res)
+    });
+
   }
 };
 // Action 提交的是 mutation，而不是直接变更状态， 一般是 异步提交 mutation 时用到：如上所示：

@@ -4,12 +4,15 @@ export default {
     state.hide = !state.hide;
   },
 
-  [types.ADD_NOSUBSCRIBED](state, object) {},
+  [types.ADD_NOSUBSCRIBED](state, object) { },
   increment(state, platform) {
     state.num1 += platform.number11; // 带参数： 是对象下的属性
   },
   add(state, platform) {
     state.module.number += 1;
+  },
+  mutationAPI(state, platform) {
+    state.ajaxDate = platform
   }
 };
 // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation,

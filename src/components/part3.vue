@@ -30,13 +30,21 @@
         <!-- 当使用 inline-template 特性时， 则组件标签内的内容作为模板，而不是 slot分发内容 -->
         <!-- 另一个是 通过在 script 标签上定义  type="text/x-template" id="hello-world-template", 然后通过这个 id 来引用模板  -->
         <!-- vue 定义 模板的几种方式：字符串模板， x-template,  inline-template, render函数， JSX， 单文件组件 -->
-    <part3Child    
-    :syncP.sync="syncProps"
+    <part3Child    data="abc" 
+    v-model="value" 
     v-on:fc="fc2" 
     v-for="item in items" 
     :key="item.id" 
-    :todo.sync="item">
+    :todo.sync="items.item"   
+    :syncP.sync="syncProps">
     </part3Child>
+    <!-- 
+  1.非 props 特性，data="abc" 即组件可以接受任意特性。和静态 props特性一样，特性值都是加载在组件的根元素上 
+  2.组件上的 class style 特性会和模板内的 class style合并，而 type 特性则会覆盖！！
+  3.如果 不希望 模板内的根元素继承 组件传来的 特性: 在组件的选项中 定义 inheritAttrs:true; 配合组件模板中想要接受传递过来的元素上加上特性 $attrs，即自主决定特性被赋予哪个元素上
+  4. sync修饰符，子组件修改父组件的 
+  5. :todo.sync="{item:34}" 里面放表达式是不允许的！！
+     -->
       </div>
       <div class=" bb pa2">
      <ul>
@@ -49,13 +57,17 @@
     {{ buttonMessage }}
   </button>
 </transition>
- <p>{{Mnumber}}</p>
+ <p>{{Mnumber}}1213</p>
  <p>{{ getnum }}</p>
  <p>{{msg | capitalize}}ssss</p>
  <button @click="plusNum()">按钮Module</button>
  <button @click="syncM()">asyM</button>
     <component :is="currentView"></component>
-    <p11 :list="list"/>
+    <p11  :list="list"/>
+    <div v-text="value"></div>
+    <div v-pre>{{value}}</div>  
+    <!-- v-pre 跳过编译，直接输出原始值 -->
+    <!-- v-cloak 这个指令可以隐藏未编译的 Mustache 标签直到实例准备完毕。 -->
   </div>
 </template>
 <script>
@@ -74,6 +86,7 @@ export default {
   // },     组件里的导航守卫
   data() {
     return {
+      value: "sss",
       list: [
         {
           title: "成人票",
@@ -101,7 +114,12 @@ export default {
       docState: "edited",
       currentView: p11,
       something: "sffsfafsa",
-      items: [{ id: "1", text: "11" }, { id: "2", text: "22" }, { id: "3", text: "33" }, { id: "4", text: "44" }],
+      items: [
+        { id: "1", text: "11qq" },
+        { id: "2", text: "22" },
+        { id: "3", text: "33" },
+        { id: "4", text: "44" }
+      ],
       goods: {},
       classMap: ["ab", "cd"],
       numbers: [1, 2, 3, 4, 5, 6],
@@ -181,9 +199,7 @@ export default {
       return (this.$refs.div1.style.color = "yellow");
     },
     ttal() {
-      this.$nextTick(() => {
-        return (this.total += 1);
-      });
+      return (this.total += 1);
     }
   }
 };

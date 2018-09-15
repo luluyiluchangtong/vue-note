@@ -6,10 +6,10 @@ import p12 from "../components/p12.vue";
 import part1 from "../components/part1.vue";
 import part2 from "@/components/part2";
 import aboutVue from "@/components/aboutVue";
-// import part3 from '../com ponents/part3.vue'
+import part3 from '@/components/part3.vue'
 import login from "../components/login.vue";
 
-const part3 = () => import("../components/part3.vue");
+// const part3 = () => import("../components/part3.vue");
 // 异步组件的引入方式
 
 Vue.use(Router);
@@ -28,6 +28,17 @@ export default new Router({
       x: 0,
       y: 0
     };
+  },
+  scrollBehavior(to,from,savedPosition){    // 滚动行为
+    if(savedPosition){
+     return savedPosition
+    }else if(to.hash){
+      return {
+        selector: to.hash
+      }
+    }else{
+    return {x:11,y:22}
+    }
   },
   routes: [
     {
@@ -85,7 +96,7 @@ export default new Router({
     return { x: 0, y: 200 };
   }
 });
-
+// 路由元信息???
 // router
 // $router 对象的属性： $router.params ....
 // 定义路由到组件的映射，引入组件，最后配置响应链接！！
@@ -140,14 +151,15 @@ routes: [
   { path: '*', component: NotFoundComponent }
 ]
 */
-
+// 调用守卫,触发组件!!  导航解析流程  
 // 导航守卫： 其实就是 钩子函数。就是在导航跳转的时候，我们就可以通过 钩子函数 来 拦截 并作 相应的处理。
 // 使用场景：某些页面需要登录后才可以访问、某些页面需要用户达到什么等级才可以访问，又或者是跳转页面后修改一些信息等等
 
-// 1.全局导航钩子：beforeEach()  afterEach() 写在  路由实例中  即写在 main.js里   afterEach()没有 next参数，
-// 2.局部导航钩子：beforeEnter()， 写在 路由配置中
-// 3.组件内的导航钩子：beforeRouteEnter(不能获取组件实例 this，不过可以通过给 next() 传递回调访问组件实例)  beforeRouteUpdate()  beforeRouteLeave()
-// 每个守卫方法都接收三个参数：(to, from, next) to:哪儿去   form：哪儿来的   next(false)不准去，保持就好。 next({path:'/'}) 去个别的地方吧   next(error) 怎么做你都是错的。
+// 1.全局导航钩子：beforeEach()  afterEach() 写在  路由实例中  即写在 main.js里   afterEach()没有 next参数，全局解析守卫:beforeResolve,和 beforeEach类似,只是前者是路由解析后,后者是路由解析前.
+// 2.局部导航钩子：beforeEnter()， 写在 路由配置(routes)中, 它和全局前置守卫的方法参数是一样的
+// 3.组件内的导航钩子：beforeRouteEnter(不能获取组件实例 this，因为当守卫执行前，组件实例还没被创建)  beforeRouteUpdate(在使用 动态路由 时有用.)  beforeRouteLeave(离开前确认是否保存)
+// 每个守卫方法都接收三个参数：(to, from, next) to:哪儿去   form：哪儿来的   next(false)哪儿都不准去，保持就好。 next({path:'/'}) 去个别的地方吧   next(error) 怎么做你都是错的,会传递一个错误。
+// 一定要调用 next()
 
 // 路由源信息 meata    过渡效果 <transition> <router-view></router-view> <transition>
 
