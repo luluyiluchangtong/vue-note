@@ -1,9 +1,9 @@
 <template>
   <div class="bb">
-      <ul>
-          <li>{{todo.text}}</li>
+      <ul class="part3ChildCss">
+          <li>{{todo.text}}1221333333</li>
       </ul>
-
+    <div v-bind:class="abcd">sssssssssssssssssssssssssssss</div>
       <p  ref="abc">dsad dsad{{num}}</p>
       <p>{{syncP}}</p>
       <button @click='fc'>按钮11</button>
@@ -13,13 +13,31 @@
     <input type="checkbox" :checked="checked" @change="$emit('change',$event.target.checked)">
     <input :value="value" @input="$emit('input', $event.target.value)">
     <!--  value 和 input 和 model建立联系 -->
+    <!-- 通过 props 传递 value值， -->
+    <!-- 将 标签的 value 特性 绑定 data里的 value数据，监听input 事件所改变的 vlue 值来同步 data里的 value值  -->
+       <slot name="footer"></slot>
+       <slot name="AV" :shuju="shujuku"></slot>
 
-       <slot></slot>
+       <ul>
+         <li  v-for="(item,index) in items" :key="index">
+         <slot :item="item">
+          <!-- 回退的内容 -->
+          {{ item.text }}
+         </slot>
+         </li>
+       </ul>
+       
+       <!-- 第一个 shuju 相当于 slot 组件接受的 props 第二个 shuju 是需要传递给父组件的数据 -->
+       <!-- slot-scope 父组件 接受 子组件里的数据 -->
   </div>
 </template>
 <script>
 export default {
   props: {
+    abc: {
+      type: String,
+      default: ""
+    },
     // props 可以是简单的数组 或 有配置的对象
     value: {
       type: String,
@@ -56,7 +74,16 @@ export default {
   data() {
     return {
       counter: this.todo,
-      num: 23
+      num: 23,
+      abcd: {
+        a: "ss"
+      },
+      shujuku: ["zhangsan", "lisi", "wanwu", "zhaoliu", "tianqi", "xiaoba"],
+      items: [
+        { text: 12, name: "li" },
+        { text: 122, name: "lt" },
+        { text: 123, name: "le" }
+      ]
     };
   },
 
@@ -65,6 +92,7 @@ export default {
   },
   methods: {
     fc() {
+      debugger;
       this.$emit("fc");
     },
     fc1() {

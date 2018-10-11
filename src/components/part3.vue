@@ -26,7 +26,7 @@
       <div @click="ttal">{{total}} this.$nextTick</div>
      </div>
 
-      <div class=" bb pa2">
+      <div class=" fatherCss bb pa2">
         <!-- 当使用 inline-template 特性时， 则组件标签内的内容作为模板，而不是 slot分发内容 -->
         <!-- 另一个是 通过在 script 标签上定义  type="text/x-template" id="hello-world-template", 然后通过这个 id 来引用模板  -->
         <!-- vue 定义 模板的几种方式：字符串模板， x-template,  inline-template, render函数， JSX， 单文件组件 -->
@@ -38,11 +38,55 @@
     :todo.sync="items.item"   
     :syncP.sync="syncProps">
     </part3Child>
+    <!--第一次使用：用flex展示数据-->
+    <part3Child>
+      <template slot-scope="user">
+        <div class="tmpl bg-green">
+          <span v-for="item in user.shuju" :key="item">{{item}}</span>
+        </div>
+      </template>
+
+    </part3Child>
+
+    <!--第二次使用：用列表展示数据-->
+    <part3Child>
+      <template slot-scope="user">  
+        <ul class="bg-red"> 
+          <li v-for="item in user.shuju" :key="item">{{item}}</li>
+        </ul>
+      </template>
+      
+  <!-- slot-scope 可以用在插槽内的任何元素或组件上 -->
+    </part3Child>
+
+    <!--第三次使用：直接显示数据-->
+    <part3Child>
+      <template  slot-scope="user">
+        <div class="bg-yellow">
+       {{user.shuju}}
+        </div>
+      </template>
+
+    </part3Child>
+
+    <!--第四次使用：不使用其提供的数据, 作用域插槽退变成匿名插槽-->
+    <part3Child>
+      <div class="bg-blue">
+      我就是模板
+      </div>
+    </part3Child>
+    <part3Child>
+       <div slot-scope="usedata">
+         {{usedata.item.name}}
+       </div>
+    </part3Child>
     <!-- 
   1.非 props 特性，data="abc" 即组件可以接受任意特性。和静态 props特性一样，特性值都是加载在组件的根元素上 
   2.组件上的 class style 特性会和模板内的 class style合并，而 type 特性则会覆盖！！
   3.如果 不希望 模板内的根元素继承 组件传来的 特性: 在组件的选项中 定义 inheritAttrs:true; 配合组件模板中想要接受传递过来的元素上加上特性 $attrs，即自主决定特性被赋予哪个元素上
-  4. sync修饰符，子组件修改父组件的 
+  4. sync修饰符，子组件修改父组件的 数据 
+     这里子组件的 todo 通过 sync 修改父组件里的 items.item，然后在子组件里修改
+         子组件的 syncP 通过 sync 修改父组件的  syncProps， 然后在子组件里修改
   5. :todo.sync="{item:34}" 里面放表达式是不允许的！！
      -->
       </div>
@@ -86,11 +130,11 @@ export default {
   // },     组件里的导航守卫
   data() {
     return {
-      value: "sss",
+      value: "123",
       list: [
         {
           title: "成人票",
-          children: [
+          part3Children: [
             {
               title: "成人三馆联票"
             },
@@ -176,7 +220,7 @@ export default {
   created() {},
   methods: {
     aa() {
-      console.log(this.$children);
+      console.log(this.$part3Children);
     },
     ...mapMutations(["plusNum"]),
     ...mapActions(["syncM"]),
@@ -205,6 +249,9 @@ export default {
 };
 </script>
 <style scoped>
+.fatherCss >>> .part3ChildCss {
+  border: solid 10px;
+}
 .active {
   color: red;
 }

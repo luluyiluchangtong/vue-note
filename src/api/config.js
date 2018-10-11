@@ -111,7 +111,7 @@ axios.interceptors.response.use(
     }
 )
 
-export function get(url, params) {
+export function get(url, params) { // 此时该函数就是一个 promise 对象
     return new Promise((resolve, reject) => {  // promise 用来填装 axios 取到的数据
         axios.get(url, {
             params: params
@@ -134,18 +134,6 @@ export function post(url, params) {   // 对提交参数对象进行 序列化, 
             })
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

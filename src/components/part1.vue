@@ -13,6 +13,10 @@
     <!--************-->
     <div class='bb pa2'>
       <num v-model="searchText" v-for="(item, index) of items1" :key="index" :todo="item"  msg='静态 props'></num>
+     <input v-model="value" /> 
+     <input v-bind:value="value"  v-on:input="value= $event.target.value" />
+      <p>语法糖{{value}}</p>
+
       <!-- <mumName msg='静态 props'></mumName> -->
       <!-- 书写顺序： 1.先写import 2.再写 components  3.最后写组件标签 -->
       <!-- import 后面的名称可以自由定义的，一般是默认的文件名称 -->
@@ -59,6 +63,7 @@
   <img class=" w-10" src="../assets/images/aa.png" alt="">
      <router-link :to="{ path: '/part2'}" replace>replace</router-link>
      <router-link :to="{ path: '/part1/part2'}" append>append</router-link>
+
      <!-- ??? append -->
 
      <router-link to="/part1/p11">p11</router-link>
@@ -93,12 +98,14 @@ import BScroll from "better-scroll";
 // import data from "../api/data";
 import { mapState, mapMutations, mapActions } from "vuex";
 import { apiAddress, apiAddress1 } from "../api/api.js"; // 导入我们的api接口
+import { addDataToStu } from "../api/jquery_api.js";
 export default {
   name: "part1", // 只能出现在 组件选项上，name 主要是便于调试，所以请给每个组件提供一个 name
   data() {
     // data的属性转换为  getter  setter 而且只能是数据，不推荐有状态行为的对象，
     // 这里不能用箭头函数，因为=>指的是父级上下文，this就不是这个实例(组件)了，就找不到data里的数据了
     return {
+      value: "",
       searchText: "haorooms",
       items: [],
       items1: [
@@ -247,6 +254,9 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
         sort: 1
       }).then(res => {
         // 获取数据成功后的其他操作
+        console.log(res);
+      });
+      addDataToStu({ name: "aa", sex: "bb" }).then(res => {
         console.log(res);
       });
     }
