@@ -17,24 +17,56 @@
       <div v-if="isShowing">
     混合选项：即将所有可复用的 vue 组件中的功能通过 混合对象组合在一起
       </div>
-     <input @click="toggleShow" type="button" value="Mixins按鈕">
    </div>
-
+    <xuanranFun myProp=5678>
+      <span slot="chacao">fsfd</span>
+    </xuanranFun>
+    <Func  :todos="todos" v-bind:number="112"  class="specialColor">
+      <span>按钮</span> 
+      </Func>
   </div>
 </template>
 <script>
 import { toggle } from "../components/mixins/toggle";
+import xuanranFun from "./xuanranFun";
+import Func from "./Func";
 export default {
   mixins: [toggle],
   data() {
     return {
+      className: "func",
+      todos: [
+        {
+          name: "a",
+          id: 0
+        },
+        {
+          name: "b",
+          id: 1
+        },
+        {
+          name: "c",
+          id: 2
+        }
+      ],
       items: [],
       newItem: "",
       hasData: false
     };
   },
+  components: {
+    xuanranFun,
+    Func
+    //
+  },
   computed: {},
   methods: {
+    log() {
+      alert("FuncMEthods");
+    },
+    nativeClickHandler() {
+      alert("render");
+    },
     addItem() {
       if (this.newItem.trim() == "") {
         return;

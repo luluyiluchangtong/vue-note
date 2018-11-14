@@ -25,7 +25,7 @@ export function addDataToStu(params) {
     })
 }
 
-
+// config 对象  config ={里面都是 config对象的属性}
 
 // delete
 export function deleteById(params) {
@@ -49,7 +49,7 @@ export function updataById(params) {
 
 
 /*
-
+数据调用
 // 添加---------------------> 要添加的数据, 对象形式         
                 addDataToStu({name:"",sex:""}).then((res) => {
                     console.log(res)

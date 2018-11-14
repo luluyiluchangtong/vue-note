@@ -7,7 +7,7 @@ import mutations from './mutations'
 import getters from './getters'
 import actions from './actions'
 import module from './modules/module'
-
+import { storePlugins } from './storePlugins';
 
 // export default new Vuex.Store ({
 const store = new Vuex.Store({
@@ -17,7 +17,8 @@ const store = new Vuex.Store({
   actions,
   modules: {
     module
-  }
+  },
+  plugins: [storePlugins]
   // 这里如果引用modules里的数据的写法是：
   // return this.$store.state.module.number
 })

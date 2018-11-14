@@ -5,7 +5,7 @@ export const toggle = {
         }
     },
     methods: {
-        toggleShow() {
+        $_toggleShow() {     // 在插件、混入等扩展中始终为自定义的私有属性使用 $_ 前缀
             this.isShowing = !this.isShowing
         }
     }

@@ -20,7 +20,7 @@
 
        <ul>
          <li  v-for="(item,index) in items" :key="index">
-         <slot :item="item">
+         <slot name="ss" :item="item">
           <!-- 回退的内容 -->
           {{ item.text }}
          </slot>

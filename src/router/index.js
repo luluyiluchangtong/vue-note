@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
+Vue.use(Router);
+
 import p11 from "../components/p11.vue";
 import p12 from "../components/p12.vue";
-
 import part1 from "../components/part1.vue";
 import part2 from "@/components/part2";
 import aboutVue from "@/components/aboutVue";
@@ -12,7 +13,6 @@ import login from "../components/login.vue";
 // const part3 = () => import("../components/part3.vue");
 // 异步组件的引入方式
 
-Vue.use(Router);
 export default new Router({
   linkExactActiveClass: "active", // 链接激活时的全局配置  Exact(精确的)
   // linkExactActiveClass: 'active', 全局配置激活的，默认的class
@@ -29,15 +29,15 @@ export default new Router({
       y: 0
     };
   },
-  scrollBehavior(to,from,savedPosition){    // 滚动行为
-    if(savedPosition){
-     return savedPosition
-    }else if(to.hash){
+  scrollBehavior(to, from, savedPosition) {    // 滚动行为
+    if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
       return {
         selector: to.hash
       }
-    }else{
-    return {x:11,y:22}
+    } else {
+      return { x: 11, y: 22 }
     }
   },
   routes: [
@@ -97,11 +97,12 @@ export default new Router({
   }
 });
 // 路由元信息???
-// router
-// $router 对象的属性： $router.params ....
+// route  --- 路由对象
+// $route 对象的属性： $route.params ....
 // 定义路由到组件的映射，引入组件，最后配置响应链接！！
 // 动态路由可以设置多个路由参数 /login/:Id/post/:username。。使用路由参数时。因为组件会复用，所以跳转的时候，组件的 钩子函数 也不会被调用！！这里需要注意
 // 所以 需要对路由参数的变化做出响应， 使用  beforeRouteUpdate(to,from,next){ console.log('ss'), next()}
+// $router --- 路由实例 的方法： go push replace back forward
 
 // 声明式路由：
 // <router-link to="home">Home</router-link>
@@ -112,7 +113,7 @@ export default new Router({
 // tag 属性，默认是 a标签。 可以更改  tag="li"
 // event 属性， 触发导航的事件，默认 event="click"
 
-// 编程式路由：push()  replace()  go()
+// 编程式路由：push()  replace()  go()  forward()
 // router.push({ name: 'user', params: { userId: 123 }})
 // path 和 params 分开写时 params 是不生效的。 要么path 写全； 要么 name 和 params 一起配置。。
 // 同样的规则也适用于 router-link 组件的 to 属性。
@@ -156,17 +157,18 @@ routes: [
 // 使用场景：某些页面需要登录后才可以访问、某些页面需要用户达到什么等级才可以访问，又或者是跳转页面后修改一些信息等等
 
 // 1.全局导航钩子：beforeEach()  afterEach() 写在  路由实例中  即写在 main.js里   afterEach()没有 next参数，全局解析守卫:beforeResolve,和 beforeEach类似,只是前者是路由解析后,后者是路由解析前.
-// 2.局部导航钩子：beforeEnter()， 写在 路由配置(routes)中, 它和全局前置守卫的方法参数是一样的
+// 2.局部导航钩子：beforeRouterEnter()， 写在 路由配置(routes)中, 它和全局前置守卫的方法参数是一样的
 // 3.组件内的导航钩子：beforeRouteEnter(不能获取组件实例 this，因为当守卫执行前，组件实例还没被创建)  beforeRouteUpdate(在使用 动态路由 时有用.)  beforeRouteLeave(离开前确认是否保存)
 // 每个守卫方法都接收三个参数：(to, from, next) to:哪儿去   form：哪儿来的   next(false)哪儿都不准去，保持就好。 next({path:'/'}) 去个别的地方吧   next(error) 怎么做你都是错的,会传递一个错误。
 // 一定要调用 next()
 
-// 路由源信息 meata    过渡效果 <transition> <router-view></router-view> <transition>
+// 路由源信息 meta    过渡效果 <transition> <router-view></router-view> <transition>
 
 // 导航完成后（生命周期钩子 created(){ this.getData() }中）获取数据，期间显示『加载中』之类的指示。 ？？？？？
 // 数据获取成功后执行导航。  ？？？？？？？？？
 
 // 路由对象存在于： routes[ {} ---这是路由信息对象 ];  scrollBehavior 方法的参数; 导航守卫的参数;  this.$route
+// routes --- 路由配置信息
 
 // 切换路由时的滚动行为:
 // 路由实例提供的方法：scrollBehavior(to, from, savedPosition)  savedPosition参数只在浏览器前进后退按钮时用到
@@ -189,6 +191,14 @@ scrollBehavior (to, from, savedPosition) {
     }
   }
 }
+
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;    使用浏览器的前后导航才有用，即上次浏览到哪里后退的时候就显示上次浏览的位置
+    } else {
+      return { x: 100, y: 700 }  否则回退的时候就显示滚动到这个位置
+    }
+  }
 */
 
 // 路由懒加载： 结合 Vue 的异步组件 和 webpack 的代码分割功能

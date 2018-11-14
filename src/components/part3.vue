@@ -40,18 +40,18 @@
     </part3Child>
     <!--第一次使用：用flex展示数据-->
     <part3Child>
-      <template slot-scope="user">
+      <template slot="AV" slot-scope="user">
         <div class="tmpl bg-green">
           <span v-for="item in user.shuju" :key="item">{{item}}</span>
         </div>
       </template>
 
     </part3Child>
-
+  
     <!--第二次使用：用列表展示数据-->
     <part3Child>
-      <template slot-scope="user">  
-        <ul class="bg-red"> 
+      <template slot="AV" slot-scope="user">  
+        <ul class="bg-red">
           <li v-for="item in user.shuju" :key="item">{{item}}</li>
         </ul>
       </template>

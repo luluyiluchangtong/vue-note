@@ -23,12 +23,12 @@ import smoothscroll from "smoothscroll-polyfill";
 // kick off the polyfill!
 smoothscroll.polyfill();
 
-// 用 vueaxios 就是定义了大家都知道的规范：
+// 用 vueaxios 就是定义了大家都知道的规范：  vueaxios 引入的时候需要写在前面，否则报错 Vue.use(Vueaxios, axios);
 // 有三种使用方式都可以： 1.Vue.axios.get(api)   2.this.axios.get(api)   3.this.$http.get(api)
 
 // 用了vueaxios 就可以不用像下面这么写了。。
 // Vue.prototype.$http = axios
-// 全局绑定 就是说在别的组件里 直接使用 this.$http.get('/user?ID=12345') 不用再 import axios 。。。
+// 全局绑定 就是说在别的组件里 直接使用 axios.get('/user?ID=12345') 不用再 import axios 。。。
 // 只是单独的在 单个组件 里用，就直接 import axios  然后 aixos.get(api)... 这么用就行了
 Vue.config.keyCodes.y = 121;
 Vue.config.productionTip = false;

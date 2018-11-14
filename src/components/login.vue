@@ -32,6 +32,8 @@ export default {
         alert("输入不正确！");
       } else {
         this.$router.replace("/part1");
+        // this.$router.push/repleace/go/back/forward
+        // console.log(this.$route.param )
       }
     }
   }

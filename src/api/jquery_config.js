@@ -16,6 +16,7 @@ let ajax = function (config) {  // 此时该函数就是一个 promise 对象
             success(data) {
                 resolve(data)
             },
+            
             error(err) {
                 reject(err)
             },

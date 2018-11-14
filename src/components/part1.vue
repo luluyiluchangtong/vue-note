@@ -3,10 +3,10 @@
     <div class='bb pa2'>
       <h3>例子1：</h3>
       <div v-if='hide' key="hide">
-        切換元素1
+        切換元素11
       </div>
       <div v-else key="show">
-        切換元素2
+        切換元素223
       </div>
       <input type="button" value="anniu" @click='TOGGOLE'>
     </div>
@@ -31,6 +31,7 @@
     <div class='bb pa2'>
       <router-link to='/login'>登陆</router-link>
       <router-link :to="{ name: 'log', params: { Id: 123 }}">编程式路由1</router-link>
+      <!-- path 不能和 params 一起使用，只能是 name -->
       <span @click="psh()">编程式路由2</span>
       <span>modules里的数据{{number}}</span>
     </div>
@@ -88,7 +89,7 @@
      <button @click="toast">toast按钮</button>
      <div @click="Box()">{{this.$appName}} 这是在 main.js Vue原型上定义的属性，</div>  
      <div ref="abc" @click="sayHi()">abc</div>
-     
+      <button  @click="crea"> anniu12</button>
   </div>
 </template>
 <script>
@@ -208,6 +209,7 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
     },
     crea() {
       console.log("aaaa");
+      console.log(this.$route.matched);
     },
     addItem() {
       this.items.push({ label: this.newItem, isFinished: false });
@@ -244,20 +246,20 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
       // 调用api接口，并且提供了两个参数
       apiAddress({
         type: 0,
-        sort: 1
+        sort: 11
       }).then(res => {
         // 获取数据成功后的其他操作
         console.log(res);
       });
       apiAddress1({
         type: 0,
-        sort: 1
+        name: "nk" // 根据传入的字符串获取响应式数据
       }).then(res => {
         // 获取数据成功后的其他操作
         console.log(res);
       });
       addDataToStu({ name: "aa", sex: "bb" }).then(res => {
-        console.log(res);
+        console.log("响应式数据", res);
       });
     }
     // refresh() {
