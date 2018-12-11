@@ -5,7 +5,8 @@ export default {
   hide: false,
   gettel: "admin",
   getpas: "admin",
-  ajaxDate: []
+  ajaxDate: [],
+  a: 22
 };
 // Vuex 使用 单一状态树 —— 是的，用一个对象就包含了全部的应用层级状态
 // 通过在根实例中（App.vue）注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，（前面的说明在 main.js里体现）

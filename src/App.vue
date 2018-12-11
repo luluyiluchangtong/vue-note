@@ -96,6 +96,9 @@ export default {
 </script>
 
 <style scoped>
+ #app{
+   text-align:center
+ }
 .active {
   color: green;
 }

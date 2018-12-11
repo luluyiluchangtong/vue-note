@@ -48,7 +48,7 @@
       <!-- 默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event -->
       <div>{{msg}}</div>
     </div>
-    <div>{{num1}}</div>
+    <div>{{num1}}路中间法律上法律  </div>
     <input type="button" value="异步提交action" @click='Async'>
     <input type="button" value="提交mutations" @click='incre'>
      <div @click="add">{{number}}</div>
@@ -189,7 +189,7 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
     },
     // 如果使用了  箭头函数，则
     // number: vm=>vm.module.number
-    ...mapState(["hide", "num1"])
+    ...mapState(["hide", "num1", "a"])
   },
   // 这里不能用箭头函数，因为=>指的是父级上下文，this就不是这个实例(组件)了, 就找不到data里的数据了
   // 计算属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算

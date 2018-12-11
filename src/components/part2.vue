@@ -28,8 +28,7 @@
 </template>
 <script>
 import { toggle } from "../components/mixins/toggle";
-import xuanranFun from "./xuanranFun";
-import Func from "./Func";
+
 export default {
   mixins: [toggle],
   data() {
@@ -55,8 +54,7 @@ export default {
     };
   },
   components: {
-    xuanranFun,
-    Func
+
     //
   },
   computed: {},

@@ -7,14 +7,14 @@
       <p  ref="abc">dsad dsad{{num}}</p>
       <p>{{syncP}}</p>
       <button @click='fc'>按钮11</button>
+      <!-- @click="$emit('fc')"   这样直接触发 父组件上的-->
       <button @click='fc1'>按钮1221</button>
       <button @click='up'>syncP</button>
 
     <input type="checkbox" :checked="checked" @change="$emit('change',$event.target.checked)">
     <input :value="value" @input="$emit('input', $event.target.value)">
     <!--  value 和 input 和 model建立联系 -->
-    <!-- 通过 props 传递 value值， -->
-    <!-- 将 标签的 value 特性 绑定 data里的 value数据，监听input 事件所改变的 vlue 值来同步 data里的 value值  -->
+    <!-- prop 下的 value 接受 绑定在 data里的 value数据，监听input 事件所改变的 vlue 值来同步 data里的 value值  -->
        <slot name="footer"></slot>
        <slot name="AV" :shuju="shujuku"></slot>
 
