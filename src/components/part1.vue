@@ -1,59 +1,69 @@
 <template>
   <div>
-    <div class='bb pa2'>
+    <div class="bb pa2">
+      <!-- <span>{{ errors.first('myinput') }}</span> -->
+      <p>{{Providername}}</p>
       <h3>例子1：</h3>
-      <div v-if='hide' key="hide">
-        切換元素11
-      </div>
-      <div v-else key="show">
-        切換元素223
-      </div>
-      <input type="button" value="anniu" @click='TOGGOLE'>
+      <div v-if="hide" key="hide">切換元素11</div>
+      <div v-else key="show">切換元素223</div>
+      <input type="button" value="anniu" @click="TOGGOLE">
     </div>
     <!--************-->
-    <div class='bb pa2'>
-      <num v-model="searchText" v-for="(item, index) of items1" :key="index" :todo="item"  msg='静态 props'></num>
-     <input v-model="value" /> 
-     <input v-bind:value="value"  v-on:input="value= $event.target.value" />
+    <div class="bb pa2">
+      <num
+        v-model="searchText"
+        v-for="(item, index) of items1"
+        :key="index"
+        :todo="item"
+        msg="静态 props"
+      ></num>
+      <input v-model="value">
+      <input v-bind:value="value" v-on:input="value= $event.target.value">
       <p>语法糖{{value}}</p>
 
       <!-- <mumName msg='静态 props'></mumName> -->
       <!-- 书写顺序： 1.先写import 2.再写 components  3.最后写组件标签 -->
       <!-- import 后面的名称可以自由定义的，一般是默认的文件名称 -->
       <!-- 静态 props-->
-      <num :msg1='msg1'></num>
+      <num :msg1="msg1"></num>
       <!-- 动态 props  prop通过 v-bind 动态赋值-->
       <num v-bind="msg2"></num>
       <!-- 动态 props 绑定对象的方式,-->
       <!-- props 可以是 数组 或 对象，用来接收来自 父组件 的 数据 -->
     </div>
     <!--************-->
-    <div class='bb pa2'>
-      <router-link to='/login'>登陆</router-link>
-      <router-link :to="{ name: 'log', params: { Id: 123 }}">编程式路由1</router-link>
+    <div class="bb pa2">
+      <router-link to="/login">登陆</router-link>
+      <router-link :to="{ name: 'log', params: { Id: '123' }}">编程式路由1</router-link>
+      <!-- <router-link :to="{ path: 'log', query: { Id: '123' }}">编程式路由1</router-link> -->
+      <!-- name VS params    path VS query -->
       <!-- path 不能和 params 一起使用，只能是 name -->
       <span @click="psh()">编程式路由2</span>
       <span>modules里的数据{{number}}</span>
     </div>
-    <div class='bb pa2'>
+    <div class="bb pa2">
       <ul>
-        <li v-for='(tab, index) in tabs' :key='tab.text' @click='tabClik(index)' :class="index===tabActive ?'active':''">
-          {{tab.text}}
-        </li>
+        <li
+          v-for="(tab, index) in tabs"
+          :key="tab.text"
+          @click="tabClik(index)"
+          :class="index===tabActive ?'active':''"
+        >{{tab.text}}</li>
       </ul>
     </div>
 
-    <div class=" bb pa2">
+    <div class="bb pa2">
       <input type="text" v-model="msg">
       <!-- 默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event -->
       <div>{{msg}}</div>
     </div>
-    <div>{{num1}}路中间法律上法律  </div>
-    <input type="button" value="异步提交action" @click='Async'>
-    <input type="button" value="提交mutations" @click='incre'>
-     <div @click="add">{{number}}</div>
+    <div>{{num1}}路中间法律上法律</div>
+    <input type="button" value="异步提交action" @click="Async">
+    <input type="button" value="提交mutations" @click="incre">
+    <div @click="add">{{number}}</div>
 
-     <input type="text" v-model="newItem"> <input type="button" @click="addItem" value="按钮">
+    <input type="text" v-model="newItem">
+    <input type="button" @click="addItem" value="按钮">
     <ul>
       <li v-for=" (item,index) in items" :key="index">
         <span :class="item.isFinished ? 'del':''">{{ item.label }}</span>
@@ -61,35 +71,34 @@
         <span @click="dele(index)">delete</span>
       </li>
     </ul>
-  <img class=" w-10" src="../assets/images/aa.png" alt="">
-     <router-link :to="{ path: '/part2'}" replace>replace</router-link>
-     <router-link :to="{ path: '/part1/part2'}" append>append</router-link>
+    <img class="w-10" src="../assets/images/aa.png" alt>
+    <router-link :to="{ path: '/part2'}" replace>replace</router-link>
+    <router-link :to="{ path: '/part1/part2'}" append>append</router-link>
 
-     <!-- ??? append -->
+    <!-- ??? append -->
+    <router-link to="/part1/p11">p11</router-link>
+    <router-link to="/part1/p12">p12</router-link>
+    <router-view></router-view>
 
-     <router-link to="/part1/p11">p11</router-link>
-     <router-link to="/part1/p12">p12</router-link>
-      <router-view></router-view>
-
-      <div class="wrapper ba overflow-hidden" ref="wrapper" style=" height:400px; width:400px;">dfsaf
+    <div class="wrapper ba overflow-hidden" ref="wrapper" style=" height:400px; width:400px;">dfsaf
       <ul class="content">
-         <li class=" h5 ba w-100">dsd1</li>
-         <li class=" h5 ba w-100">dsd2</li>
-         <li class=" h5 ba">dsd3</li>
-         <li class=" h5 ba">dsd4</li>
-         <li class=" h5 ba">dsd5</li>
-         <li class=" h5 ba">dsd6</li>
-         <li class=" h5 ba">dsd7</li>
-         <li class=" h5 ba">dsd7</li>
-      </ul> 
-     </div>
-     <!-- better-scroll 滚动 -->
-     <button @click="actionAPI">actionAPI</button>
-     <button @click="onLoad">11按钮</button>
-     <button @click="toast">toast按钮</button>
-     <div @click="Box()">{{this.$appName}} 这是在 main.js Vue原型上定义的属性，</div>  
-     <div ref="abc" @click="sayHi()">abc</div>
-      <button  @click="crea"> anniu12</button>
+        <li class="h5 ba w-100">dsd1</li>
+        <li class="h5 ba w-100">dsd2</li>
+        <li class="h5 ba">dsd3</li>
+        <li class="h5 ba">dsd4</li>
+        <li class="h5 ba">dsd5</li>
+        <li class="h5 ba">dsd6</li>
+        <li class="h5 ba">dsd7</li>
+        <li class="h5 ba">dsd7</li>
+      </ul>
+    </div>
+    <!-- better-scroll 滚动 -->
+    <button @click="actionAPI">actionAPI</button>
+    <button @click="onLoad">11按钮</button>
+    <button @click="toast">toast按钮</button>
+    <div @click="Box()">{{this.$appName}} 这是在 main.js Vue原型上定义的属性，</div>
+    <div ref="abc" @click="sayHi()">abc</div>
+    <button @click="crea">anniu12</button>
   </div>
 </template>
 <script>
@@ -102,6 +111,7 @@ import { apiAddress, apiAddress1 } from "../api/api.js"; // 导入我们的api�
 import { addDataToStu } from "../api/jquery_api.js";
 export default {
   name: "part1", // 只能出现在 组件选项上，name 主要是便于调试，所以请给每个组件提供一个 name
+  inject: ["Providername"], // 子子孙孙组件 通过 inject 继承父组件的 数据 方法
   data() {
     // data的属性转换为  getter  setter 而且只能是数据，不推荐有状态行为的对象，
     // 这里不能用箭头函数，因为=>指的是父级上下文，this就不是这个实例(组件)了，就找不到data里的数据了
@@ -127,6 +137,13 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$router);
+    console.log(this.$route);
+    console.log(this.$route.params); // 地址栏不能看到参数， 相当于 get 请求
+    console.log(this.$route.query); // 地址栏可以看到参数， 相当于 post 请求
+    console.log(this.$router.fullPath); // 完整的 url
+    console.log(this.$router.hash); // 片段标识符 即 # 后的字段
+    console.log(this.$route.matched); // 返回一个 嵌套路由 中，包含路由信息的数组
     // 注意 mounted 不会承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted
     this.$set(() => {
       // this.$nextTick 是一个异步函数，修改数据后，确保 整个DOM渲染完毕，再执行的步骤。 用setTimeout(fn,20)也可以
@@ -237,6 +254,8 @@ new Profile()=$mount('#mount-point') // 创建Profile 实例 并挂在到一个�
     },
     psh() {
       this.$router.push({ path: "/part2" });
+      // this.$router.push({path:"/part2",query:{Id:"234"}})
+      // this.$router.push({name:"part2",params:{Id:"234"}})
     },
     incre() {
       this.$store.commit("increment", { number11: 10 }); // 带参数和不带参数的提交方式

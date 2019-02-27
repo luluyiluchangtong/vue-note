@@ -4,7 +4,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 // import store from './vuex/store'
-import { store } from "./vuex/store";
+import {
+  store
+} from "./vuex/store";
 import "./assets/tachyons.css";
 import "./assets/reset.css";
 // import BScroll from "better-scroll";
@@ -12,7 +14,12 @@ import "./assets/reset.css";
 import config from './api/config'
 import Toast from "./components/toast";
 // 使用插件
-Vue.use(Toast);
+// Vue.use(Toast);
+
+
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
+
 // provide / inject 选项只建议在插件和库中使用
 // import { Button } from 'ant-design-vue'
 // Vue.component(Button.name, Button)
@@ -27,7 +34,8 @@ smoothscroll.polyfill();
 // 有三种使用方式都可以： 1.Vue.axios.get(api)   2.this.axios.get(api)   3.this.$http.get(api)
 
 // 用了vueaxios 就可以不用像下面这么写了。。
-// Vue.prototype.$http = axios
+// Vue.prototype.$http = axios     this.$http.post().then()
+
 // 全局绑定 就是说在别的组件里 直接使用 axios.get('/user?ID=12345') 不用再 import axios 。。。
 // 只是单独的在 单个组件 里用，就直接 import axios  然后 aixos.get(api)... 这么用就行了
 Vue.config.keyCodes.y = 121;
@@ -71,7 +79,7 @@ var vm = new Vue({
     App
   },
   //  render: h => h(App)  或使用 render函数 代替 template components
-});  // .$mount("#app")  使用手动开启编译代替  el 选项
+}); // .$mount("#app")  使用手动开启编译代替  el 选项
 
 // 所有的生命周期钩子自动绑定 this 上下文到实例中，
 // 因此你可以访问数据，对属性和方法进行运算. 同样不能使用 '=>'

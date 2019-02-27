@@ -3,8 +3,10 @@ export default {
     state => {
       return state.num1.filter(num1 + 3);
     };
-  }
+  },
+  getNumber: (state) => {}
 };
+// getters 可以看作是 store 的计算属性
 // 有时候我们需要从 store 中的 state 中 派生出 一些状态. Getters 接受 state 作为其第一个参数
 // 除了可以 传入state参数，也可以接受其他 getters 作为第二个参数
 

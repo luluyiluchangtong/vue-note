@@ -22,7 +22,7 @@ export default {
 //   方式二：
 //   computed: mapstate({
 //     count: state => state.numbers
-//   })
+//   })   以这个为准吧，， 数据来源更清楚
 
 //    当映射的‘计算属性’的名称（这里是 count） 与 属性 state里值的名称（这里是 numbers）相同时 可以传递一个 字符串数组
 //    computed: mapstate([

@@ -1,25 +1,22 @@
 <template>
   <div id="app">
     <navTab></navTab>
-        <div id="nav">
-      {{items.c}}dsfv
-    </div>
+    <div id="nav">{{items.c}}dsfv</div>
     <p>{{arr}}</p>
     <div v-focus></div>
-      <router-view></router-view>
-      <transition name='fade'>
-            <keep-alive  include="a,b">  
+    <router-view></router-view>
+    <transition name="fade">
+      <keep-alive include="a,b">
         <!-- a,b 组件的 name；   exclude 意思时不包含哪些组件  -->
         <!-- 缓存, 用在一个子组件 被开关的情形 所以 v-for 不适用 -->
-      <router-view name='a'></router-view>
-      <!-- <router-view> 组件是一个 functional 组件，渲染路径匹配到的视图组件 -->
-           </keep-alive>
-         <!-- activated函数  keep-alive激活时调用 -->
-         <!-- deactivated函数  keep-alive停用时调用 -->
-         <!-- 当组件在 <keep-alive> 内被切换，
-           它的 activated 和 deactivated 这两个生命周期钩子函数将会被对应执行 -->
-      </transition>
-
+        <router-view name="a"></router-view>
+        <!-- <router-view> 组件是一个 functional 组件，渲染路径匹配到的视图组件 -->
+      </keep-alive>
+      <!-- activated函数  keep-alive激活时调用 -->
+      <!-- deactivated函数  keep-alive停用时调用 -->
+      <!-- 当组件在 <keep-alive> 内被切换，
+      它的 activated 和 deactivated 这两个生命周期钩子函数将会被对应执行-->
+    </transition>
   </div>
 </template>
 
@@ -29,8 +26,15 @@
 //  生命周期：其实分为三个阶段： 1.数据配置前后（beforeCreate, created） 2. 实例挂载前后（beforeMount, mounted） 3.数据更新前后（beforeUpdate, updated） 4.实例销毁前后（beforeDestroy, destroyed）
 import navTab from "@/components/navTab";
 export default {
+  provide() {
+    // 父组件 提供全部 数据方法 供 子子孙孙 组件使用
+    return {
+      Providername: this.name
+    };
+  },
   data() {
     return {
+      name: "app",
       number: {
         one: 11,
         two: 22
@@ -67,6 +71,11 @@ export default {
       }
     }
   },
+  // 父子组件的 初始化 渲染 挂载顺序： 父组件初始化，渲染 => 子组件初始化，渲染 => 子组件挂载 => 父组件挂载
+  // 父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount->子mounted->父mounted
+  // 父组件准备更新 => 子组件准备更新 => 子组件跟新 => 父组件更新
+  // 父beforeUpdate->子beforeUpdate->子updated->父updated
+
   // 指令对象 focus 的 钩子函数（即指令被调用的场景） bind unbind inserted update componentUpdated
   // bind 指令第一次绑定元素时调用
   // unbind 指令与元素解绑时调用
@@ -96,9 +105,9 @@ export default {
 </script>
 
 <style scoped>
- #app{
-   text-align:center
- }
+#app {
+  text-align: center;
+}
 .active {
   color: green;
 }

@@ -1,34 +1,34 @@
 <template>
   <div class="bb">
-      <ul class="part3ChildCss">
-          <li>{{todo.text}}1221333333</li>
-      </ul>
+    <ul class="part3ChildCss">
+      <li>{{todo.text}}1221333333</li>
+    </ul>
     <div v-bind:class="abcd">sssssssssssssssssssssssssssss</div>
-      <p  ref="abc">dsad dsad{{num}}</p>
-      <p>{{syncP}}</p>
-      <button @click='fc'>按钮11</button>
-      <!-- @click="$emit('fc')"   这样直接触发 父组件上的-->
-      <button @click='fc1'>按钮1221</button>
-      <button @click='up'>syncP</button>
-
+    <p ref="abc">dsad dsad{{num}}</p>
+    <p>{{syncP}}</p>
+    <button @click="fc">按钮117</button>
+    <!-- @click="$emit('fc')"   这样直接触发 父组件上的-->
+    <button @click="fc1">按钮1221</button>
+    <button @click="up">syncP</button>
+    
     <input type="checkbox" :checked="checked" @change="$emit('change',$event.target.checked)">
     <input :value="value" @input="$emit('input', $event.target.value)">
     <!--  value 和 input 和 model建立联系 -->
     <!-- prop 下的 value 接受 绑定在 data里的 value数据，监听input 事件所改变的 vlue 值来同步 data里的 value值  -->
-       <slot name="footer"></slot>
-       <slot name="AV" :shuju="shujuku"></slot>
-
-       <ul>
-         <li  v-for="(item,index) in items" :key="index">
-         <slot name="ss" :item="item">
+    <slot name="footer"></slot>
+    <slot name="AV" :shuju="shujuku"></slot>
+    <ul>
+      <li v-for="(item,index) in items" :key="index">
+        <slot name="ss" :item="item">
           <!-- 回退的内容 -->
           {{ item.text }}
-         </slot>
-         </li>
-       </ul>
-       
-       <!-- 第一个 shuju 相当于 slot 组件接受的 props 第二个 shuju 是需要传递给父组件的数据 -->
-       <!-- slot-scope 父组件 接受 子组件里的数据 -->
+        </slot>
+      </li>
+    </ul>
+
+    <!-- :shuju="shujuku" 相当于 slot 组件将 shujuku 的数据绑定到 shuju，
+    之后 父组件里通过定义的 插槽作用域 slot-scope = 'slotProps' 来引用 shuju 
+    -->
   </div>
 </template>
 <script>
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     fc() {
-      debugger;
+      // debugger;
       this.$emit("fc");
     },
     fc1() {
@@ -111,5 +111,8 @@ div {
   color:red ul {
     color: yeloow;
   }
+}
+div {
+  // border-radius:
 }
 </style>
